@@ -27,8 +27,9 @@ con = lite.connect('test.db')
 def setup_table(cursor, table_name, data, **options):
     """Create table table_name and add data to columns."""
     cursor.execute("DROP TABLE IF EXISTS " + table_name)
-    pass
-
+    cursor.execute("CREATE TABLE " + table_name +
+                   " (Id INT, Name TEXT, Amount INT)")
+    cursor.executemany("INSERT INTO " + table_name + "VALUES(?, ?, ?)", data)
 with con:
     cur = con.cursor()
     cur.execute("DROP TABLE IF EXISTS Cars")
@@ -37,7 +38,3 @@ with con:
     cur.execute("CREATE TABLE Users(Id INT, Name TEXT, Age INT)")
     cur.executemany("INSERT INTO Cars VALUES(?, ?, ?)", cars)
     cur.executemany("INSERT INTO Users VALUES(?, ?, ?)", users)
-
-    data = cur.fetchone()
-
-    print "SQLite version: %s" % data
