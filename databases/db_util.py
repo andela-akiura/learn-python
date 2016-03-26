@@ -20,3 +20,4 @@ def setup_table(cursor, table_name, data, **options):
     cursor.execute(sql_statement)
     cursor.executemany(
         "INSERT INTO " + table_name + " VALUES(?, ?, ?)", data)
+    return cursor.lastrowid
