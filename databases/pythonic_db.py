@@ -3,6 +3,7 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3 as lite
+from db_util import setup_table
 
 cars = ((1, 'Audi', 52642),
         (2, 'Jeep', 52643),
@@ -23,18 +24,7 @@ users = ((1, 'Ngeos', 20),
          )
 con = lite.connect('test.db')
 
-
-def setup_table(cursor, table_name, data, **options):
-    """Create table table_name and add data to columns."""
-    cursor.execute("DROP TABLE IF EXISTS " + table_name)
-    cursor.execute("CREATE TABLE " + table_name +
-                   " (Id INT, Name TEXT, Amount INT)")
-    cursor.executemany("INSERT INTO " + table_name + "VALUES(?, ?, ?)", data)
 with con:
     cur = con.cursor()
-    cur.execute("DROP TABLE IF EXISTS Cars")
-    cur.execute("DROP TABLE IF EXISTS Users")
-    cur.execute("CREATE TABLE Cars(Id INT, Name TEXT, Price INT)")
-    cur.execute("CREATE TABLE Users(Id INT, Name TEXT, Age INT)")
-    cur.executemany("INSERT INTO Cars VALUES(?, ?, ?)", cars)
-    cur.executemany("INSERT INTO Users VALUES(?, ?, ?)", users)
+    setup_table(cur, "Users", users, ID="INT", Name="Text", Age="INT")
+    setup_table(cur, "Cars", cars, ID="INT", Name="Text", Price="INT")
