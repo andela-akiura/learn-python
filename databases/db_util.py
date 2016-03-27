@@ -20,4 +20,11 @@ def setup_table(cursor, table_name, data, **options):
     cursor.execute(sql_statement)
     cursor.executemany(
         "INSERT INTO " + table_name + " VALUES(?, ?, ?)", data)
+    import ipdb
+    ipdb.set_trace()
     return cursor.lastrowid
+
+
+def rows(cursor):
+    """Return all rows from the table."""
+    return cursor.fetchall()
