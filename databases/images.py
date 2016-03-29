@@ -3,12 +3,11 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3 as lite
-from db_util import setup_table, rows
 
 
-def read_image_from_fs():
+def read_image_from_fs(name):
     """Read an image from file system."""
-    with open("apple.jpg", "rb") as fin:
+    with open(name, "rb") as fin:
         return fin.read()
 
 
@@ -21,7 +20,7 @@ def write_img_to_db():
         cur.execute("INSERT INTO Images(Data) VALUES (?)", (binary,))
 
 
-def write_img_to_fs(name):
+def write_img_to_fs(name, data):
     """Save an image to the file system."""
     with open(name, "wb") as fout:
         fout.write(data)
