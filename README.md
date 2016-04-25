@@ -1,5 +1,5 @@
 # learn-python
-A collection of code snippets written to practice the python language.
+Random code written to practice python concepts.
 
 These are concepts learnt in the context of: 
 ```
